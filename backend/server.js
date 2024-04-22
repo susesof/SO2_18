@@ -2,16 +2,17 @@ const express = require('express');
 const mysql = require('mysql');
 
 const app = express();
-
+const cors = require('cors');
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
+app.use(cors());
 
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '', 
+  password: '0', 
   database: 'p1_18'
 });
 
