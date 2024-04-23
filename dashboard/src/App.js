@@ -1,31 +1,24 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import TablaSolicitudes from './TablaSolicitudes';
 import GraficoMemoria from './GraficoMemoria';
+import Procesos from './Procesos';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; // Este es tu archivo de estilos personalizados
+import './App.css';
 
 function App() {
   const [procesos, setProcesos] = useState([]);
   const [solicitudes, setSolicitudes] = useState([]);
 
   useEffect(() => {
-    // Obtener procesos
     fetch('http://localhost:4000/api/ObtenerProcesos')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setProcesos(data);
-      })
-      .catch((error) => console.error('Error:', error));
+      .then(response => response.json())
+      .then(data => setProcesos(data))
+      .catch(error => console.error('Error:', error));
 
-    // Obtener solicitudes
-    fetch('http://localhost:4000/api/ObtenerProcesos')
-      .then((response) => response.json())
-      .then((data) => {
-        setSolicitudes(data);
-      })
-      .catch((error) => console.error('Error:', error));
+    fetch('http://localhost:4000/api/ObtenerSolicitudes')
+      .then(response => response.json())
+      .then(data => setSolicitudes(data))
+      .catch(error => console.error('Error:', error));
   }, []);
 
   return (
@@ -37,7 +30,7 @@ function App() {
         </div>
         <div className="col-md-4">
           <h3>Procesos</h3>
-          {/* Aquí iría otro componente */}
+          <Procesos procesos={procesos} />
         </div>
       </div>
       <div className="row mt-4">
@@ -49,6 +42,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

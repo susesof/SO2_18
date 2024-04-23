@@ -12,7 +12,7 @@ app.use(cors());
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '0', 
+  password: '0796',
   database: 'p1_18'
 });
 
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.post('/api/NuevoProceso', (req, res) => {
   
     const { pid, nombre, llamada, tamano, fecha } = req.body;
-    const query = 'INSERT INTO procesos (pid, nombre, llamada, tamano, fecha) VALUES (?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO Proceso (pid, nombre, tamano) VALUES (?, ?, ?, ?, ?)';
     
     db.query(query, [pid, nombre, llamada, tamano, fecha], (error, results) => {
       if (error) {
@@ -42,7 +42,7 @@ app.post('/api/NuevoProceso', (req, res) => {
 
 // Obtener todos los procesos
 app.get('/api/ObtenerProcesos', (req, res) => {
-    const query = 'SELECT * FROM procesos';
+    const query = 'SELECT * FROM Proceso';
     db.query(query, (error, results) => {
       if (error) {
         return res.status(500).json({ message: "Error al obtener procesos", error: error });
@@ -51,6 +51,19 @@ app.get('/api/ObtenerProcesos', (req, res) => {
     });
   });
   
+
+
+
+
+app.get('/api/ObtenerSolicitudes', (req, res) => {
+  const query = 'SELECT * FROM solicitudes';
+  db.query(query, (error, results) => {
+    if (error) {
+      return res.status(500).json({ message: "Error al obtener solicitudes", error: error });
+    }
+    res.status(200).json(results);
+  });
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
