@@ -4,27 +4,23 @@ import 'chart.js/auto';
 import './GraficoMemoria.css';
 
 const GraficoMemoria = ({ datos }) => {
-  // Verificar si 'datos' es un array y tiene contenido.
   if (!Array.isArray(datos) || datos.length === 0) {
     return <div>No hay datos disponibles para mostrar.</div>;
   }
-  
-  // Reduce el array a un objeto que contiene la suma de 'tamano' por cada 'nombre' de proceso
-  const memoriaPorProceso = datos.reduce((acc, proceso) => {
-    const tamano = parseFloat(proceso.tamano); // Convierte 'tamano' a número
-    if (!isNaN(tamano)) { // Asegúrate de que 'tamano' es un número válido
-      if (acc[proceso.nombre]) {
-        acc[proceso.nombre] += tamano; // Suma al acumulado existente
-      } else {
-        acc[proceso.nombre] = tamano; // Inicializa con el valor actual
-      }
-    }
-    return acc;
-  }, {});
 
-  // Extrae las etiquetas y los datos acumulados para el gráfico
-  const labels = Object.keys(memoriaPorProceso);
-  const dataMemoria = Object.values(memoriaPorProceso);
+  // Ordena los datos por 'total_size' en orden descendente
+  const procesosOrdenados = [...datos].sort((a, b) => b.total_size - a.total_size);
+
+  // Selecciona los primeros 10 para mostrar en la gráfica
+  const topDiezProcesos = procesosOrdenados.slice(0, 10);
+
+  // Suma el tamaño de todos los demás procesos
+  const otrosProcesosTotalSize = procesosOrdenados.slice(10)
+    .reduce((acc, proceso) => acc + proceso.total_size, 0);
+
+  // Agrega la suma de los demás procesos como una categoría adicional en el gráfico
+  const labels = topDiezProcesos.map(proceso => proceso.process_name).concat('Otros');
+  const memoriaPorProceso = topDiezProcesos.map(proceso => proceso.total_size).concat(otrosProcesosTotalSize);
 
   // Configuración de datos para el gráfico de pastel
   const data = {
@@ -32,8 +28,11 @@ const GraficoMemoria = ({ datos }) => {
     datasets: [
       {
         label: 'Memoria por Proceso',
-        data: dataMemoria,
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        data: memoriaPorProceso,
+        backgroundColor: [
+          '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#F7464A',
+          '#949FB1', '#4D5360', '#AC64AD', '#65B7F3', '#FAE597', '#D3D3D3' // Color adicional para "Otros"
+        ],
         hoverOffset: 4
       }
     ]

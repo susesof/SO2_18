@@ -12,7 +12,7 @@ app.use(cors());
 const db = mysql.createConnection({
   host: 'sopes2.ciq9ga7cv5mb.us-east-1.rds.amazonaws.com',
   user: 'root',
-  password: 'TQQDPdyVAT3fDA4c9A8Q',
+  password: '',
   database: 'proyecto2'
 });
 
@@ -43,7 +43,7 @@ app.post('/api/NuevoProceso', (req, res) => {
 // Obtener todos los procesos
 app.get('/api/ObtenerProcesos', (req, res) => {
   const query = `
-      SELECT pid, process_name, SUM(segment_size) AS total_size, MAX(timestamp) AS last_timestamp
+      SELECT pid, process_name, SUM(segment_size) AS total_size
       FROM MemoryCalls
       GROUP BY pid, process_name
   `;

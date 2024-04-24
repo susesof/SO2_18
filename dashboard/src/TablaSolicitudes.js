@@ -25,7 +25,7 @@ function TablaSolicitudes({ solicitudes }) {
                 <td>{solicitud.pid}</td>
                 <td>{solicitud.call_type}</td>
                 <td>{solicitud.segment_size} MB</td> {/* Asumiendo que el tamaño es en MB */}
-                <td>{formatFecha(solicitud.timestamp)}</td>
+                <td>{solicitud.timestamp}</td>
               </tr>
             ))}
           </tbody>
