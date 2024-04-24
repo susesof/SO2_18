@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Procesos.css';
 function Procesos({ procesos }) {
     
     return (
@@ -9,13 +9,13 @@ function Procesos({ procesos }) {
                     <tr>
                         <th>PID</th>
                         <th>Nombre</th>
-                        <th>Tamaño Total</th> {/* Actualizado para reflejar el tamaño total */}
-                        {/* Quitar la columna de memoria si no tienes esos datos */}
+                        <th>Tamaño Total</th> 
+                        
                     </tr>
                 </thead>
                 <tbody>
                     {procesos.map((proceso) => (
-                        <tr key={`${proceso.pid}`}> {/* Usar una combinación de pid y el índice para la clave */}
+                        <tr key={`${proceso.pid}`}> 
                             <td>{proceso.pid}</td>
                             <td>{proceso.process_name}</td> 
                             <td>{proceso.total_size} MB</td> 

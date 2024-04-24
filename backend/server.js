@@ -46,6 +46,7 @@ app.get('/api/ObtenerProcesos', (req, res) => {
       SELECT pid, process_name, SUM(segment_size) AS total_size
       FROM MemoryCalls
       GROUP BY pid, process_name
+      ORDER BY total_size DESC
   `;
   db.query(query, (error, results) => {
     if (error) {

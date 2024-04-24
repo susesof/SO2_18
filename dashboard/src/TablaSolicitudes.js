@@ -1,12 +1,11 @@
-// TablaSolicitudes.js
+
+
+import React from 'react';
+import './TablaSolicitudes.css';
+
 function TablaSolicitudes({ solicitudes }) {
-    // Formatea la fecha para que se muestre de manera amigable
-    const formatFecha = (timestamp) => {
-      // Convierte el timestamp a un número y luego a una fecha
-      const fecha = new Date(Number(timestamp));
-      // Retorna la fecha en formato local
-      return fecha.toLocaleString();
-    };
+  
+   
   
     return (
       <div className="table-responsive">
@@ -24,7 +23,7 @@ function TablaSolicitudes({ solicitudes }) {
               <tr key={solicitud.id}>
                 <td>{solicitud.pid}</td>
                 <td>{solicitud.call_type}</td>
-                <td>{solicitud.segment_size} MB</td> {/* Asumiendo que el tamaño es en MB */}
+                <td>{solicitud.segment_size} MB</td> 
                 <td>{solicitud.timestamp}</td>
               </tr>
             ))}
