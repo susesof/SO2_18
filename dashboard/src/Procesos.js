@@ -10,6 +10,7 @@ function Procesos({ procesos }) {
                         <th>PID</th>
                         <th>Nombre</th>
                         <th>Tamaño Total</th> 
+                        <th>Porcentaje Total</th> 
                         
                     </tr>
                 </thead>
@@ -19,6 +20,7 @@ function Procesos({ procesos }) {
                             <td>{proceso.pid}</td>
                             <td>{proceso.process_name}</td> 
                             <td>{proceso.total_size} MB</td> 
+                            <td>{proceso.total_percent.toFixed(2)}%</td>
                             
                         </tr>
                     ))}

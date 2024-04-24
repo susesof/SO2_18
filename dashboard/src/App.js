@@ -48,10 +48,10 @@ function App() {
       {loading && <p>Actualizando...</p>}
       {loading && <br />} 
       <div className="row">
-        <div className="col-md-8">
+        <div className="col-md-6">
          <GraficoMemoria datos={procesos} />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-6">
           <h3>Procesos</h3>
           <Procesos procesos={procesos} />
         </div>

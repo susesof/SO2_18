@@ -43,7 +43,7 @@ app.post('/api/NuevoProceso', (req, res) => {
 // Obtener todos los procesos
 app.get('/api/ObtenerProcesos', (req, res) => {
   const query = `
-      SELECT pid, process_name, SUM(segment_size) AS total_size
+      SELECT pid, process_name, SUM(segment_size) AS total_size, SUM(percent) AS total_percent
       FROM MemoryCalls
       GROUP BY pid, process_name
       ORDER BY total_size DESC
