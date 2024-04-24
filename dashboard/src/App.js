@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import TablaSolicitudes from './TablaSolicitudes';
 import GraficoMemoria from './GraficoMemoria';
 import Procesos from './Procesos';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -26,7 +28,7 @@ function App() {
       <h1 className="text-center mb-4">Dashboard</h1>
       <div className="row">
         <div className="col-md-8">
-          <GraficoMemoria datos={procesos} />
+         <GraficoMemoria datos={procesos} />
         </div>
         <div className="col-md-4">
           <h3>Procesos</h3>

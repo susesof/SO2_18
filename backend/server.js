@@ -10,10 +10,10 @@ app.use(cors());
 
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: 'sopes2.ciq9ga7cv5mb.us-east-1.rds.amazonaws.com',
   user: 'root',
-  password: '',
-  database: 'p1_18'
+  password: 'TQQDPdyVAT3fDA4c9A8Q',
+  database: 'proyecto2'
 });
 
 db.connect((err) => {
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.post('/api/NuevoProceso', (req, res) => {
   
     const { pid, nombre, llamada, tamano, fecha } = req.body;
-    const query = 'INSERT INTO Proceso (pid, nombre, tamano) VALUES (?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO proceso (pid, nombre, llamada, tamano, fecha) VALUES (?, ?, ?, ?, ?)';
     
     db.query(query, [pid, nombre, llamada, tamano, fecha], (error, results) => {
       if (error) {
@@ -42,21 +42,23 @@ app.post('/api/NuevoProceso', (req, res) => {
 
 // Obtener todos los procesos
 app.get('/api/ObtenerProcesos', (req, res) => {
-    const query = 'SELECT * FROM Proceso';
-    db.query(query, (error, results) => {
-      if (error) {
-        return res.status(500).json({ message: "Error al obtener procesos", error: error });
-      }
-      res.status(200).json(results);
-    });
+  const query = `
+      SELECT pid, process_name, SUM(segment_size) AS total_size, MAX(timestamp) AS last_timestamp
+      FROM MemoryCalls
+      GROUP BY pid, process_name
+  `;
+  db.query(query, (error, results) => {
+    if (error) {
+      return res.status(500).json({ message: "Error al obtener procesos", error: error });
+    }
+    res.status(200).json(results);
   });
-  
-
+});
 
 
 
 app.get('/api/ObtenerSolicitudes', (req, res) => {
-  const query = 'SELECT * FROM solicitudes';
+  const query = 'SELECT * FROM MemoryCalls';
   db.query(query, (error, results) => {
     if (error) {
       return res.status(500).json({ message: "Error al obtener solicitudes", error: error });
@@ -64,6 +66,7 @@ app.get('/api/ObtenerSolicitudes', (req, res) => {
     res.status(200).json(results);
   });
 });
+
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

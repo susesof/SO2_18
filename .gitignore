@@ -1,6 +1,7 @@
 # Dependencias
 node_modules/
 
+.env
 # Directorios de compilación
 /dist
 /build
