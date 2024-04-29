@@ -1,0 +1,9 @@
+probe syscall.mmap2 {
+    printf("mmap2: PID=%d, process=%s, time=%d, length=%d\n",
+           pid(), execname(), gettimeofday_us(), length);
+}
+
+probe syscall.munmap {
+    printf("munmap: PID=%d, process=%s, time=%d, length=%d\n",
+           pid(), execname(), gettimeofday_us(), length);
+}

@@ -1,26 +1,20 @@
-CREATE DATABASE p1_18;
-USE p1_18;
+USE proyecto2;
 
--- Crear la tabla Proceso
-CREATE TABLE Proceso (
-  pid INT PRIMARY KEY,
-  nombre VARCHAR(255),
-  tamano INT
+CREATE TABLE MemoryCalls (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pid INT,
+    process_name VARCHAR(255),
+    call_type VARCHAR(50),
+    segment_size DOUBLE,
+    timestamp VARCHAR(255)
 );
 
--- Crear la tabla solicitudes
-CREATE TABLE solicitudes (
-  id_solicitudes INT AUTO_INCREMENT PRIMARY KEY,
-  pid INT,
-  nombre VARCHAR(255),
-  llamada VARCHAR(50),
-  tamano INT,
-  fecha DATETIME,
-  FOREIGN KEY (pid) REFERENCES Proceso(pid)
-);
+ALTER TABLE MemoryCalls ADD COLUMN percent double AFTER segment_size;
+
+SELECT * FROM MemoryCalls mc;
+SELECT * FROM MemoryCalls mc order by id desc;
+SELECT COUNT(*) FROM MemoryCalls mc;
 
 
 
-
-SELECT * FROM Proceso
 
